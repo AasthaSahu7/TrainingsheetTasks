@@ -1,0 +1,49 @@
+<aura:component controller="ApexQueryObject">    
+    <aura:attribute name="options" type="List"/>
+    <aura:attribute name="fields" type="List"/>
+    <aura:attribute name="tableLabel" type="List"/>
+    <aura:attribute name="tableData" type="List"/>
+    <aura:attribute name="selectedValue" type="string"/>
+    <aura:attribute name="selectedValues" type="List"/>
+    <aura:attribute name="textAreaValues" type="string"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <lightning:select aura:id="objects"  name="objects" label="Select an Object"  value="{!v.selectedValue}" onchange="{!c.displayFields}">
+       
+        <aura:iteration items="{!v.options}" var="object">
+            <option value="{!object}" text="{!object}"/>
+        </aura:iteration>
+    </lightning:select>
+    
+    
+    <aura:if isTrue="{!not(empty(v.selectedValue))}">
+        <lightning:dualListbox name="progress"
+                               label="Select Fields"
+                               sourceLabel="Available"
+                               selectedLabel="Selected"
+                               options="{!v.fields}"
+                               value="{!v.selectedValues}"
+                               /></aura:if>
+    
+    
+    <aura:if isTrue="{!not(empty(v.selectedValues))}">
+        <lightning:button label="Create Query" variant="brand" onclick="{! c.queryCreate }" />
+    </aura:if>
+    
+   
+        <aura:if isTrue="{!not(empty(v.textAreaValues))}">
+        <lightning:textarea  aura:id="mytextarea" placeholder="SOQL Query" label="SOQL Query" value = "{!v.textAreaValues}" maxlength="300" />
+            
+        <lightning:button label="Create table" variant="brand" onclick="{! c.tableCreate }" />
+        </aura:if>
+
+    <aura:if isTrue="{!not(empty(v.tableLabel))}">
+        <lightning:card>
+            <lightning:datatable data="{!v.tableData}" 
+                                 columns="{!v.tableLabel}"
+                                 keyField = "Id"
+                                 hideCheckboxColumn="false"/>
+        </lightning:card>
+    </aura:if>
+    
+</aura:component>
