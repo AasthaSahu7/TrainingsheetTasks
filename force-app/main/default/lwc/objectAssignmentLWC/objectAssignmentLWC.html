@@ -1,0 +1,33 @@
+<template>
+    <lightning-card>
+    
+    <lightning-combobox label="Status"
+                        value={value}
+                        placeholder="Select an Object"
+                        options={options}
+                        onchange={handleChange}>
+ </lightning-combobox>
+ <lightning-dual-listbox
+        id="selectOptions"
+        name="Select Options"
+        label="Select Options"
+        source-label="Available Options"
+        selected-label="Selected Options"
+        options={listOptions}
+        onchange={handleObjectChange}
+        value={selectedValues}
+    >
+    </lightning-dual-listbox>
+
+    <lightning-button variant="brand" label="Create Query" title="Primary action" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+
+    <lightning-textarea  aura:id="mytextarea" placeholder="SOQL Query" label="SOQL Query" value = {textAreaValues}/></lightning-textarea>
+
+    <lightning-button label="Create datatable" variant="brand" onclick={handleTable}/></lightning-button>
+    <lightning-datatable
+    key-field="id"
+    data={tableData}
+    columns={tableColumns}>
+</lightning-datatable>
+</lightning-card>
+</template>
